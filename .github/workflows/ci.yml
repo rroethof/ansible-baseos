@@ -5,10 +5,6 @@ name: CI
   push:
     branches:
 
-defaults:
-  run:
-    working-directory: 'anylinq.ansible-baseos'
-
 jobs:
 
   lint:
@@ -17,8 +13,6 @@ jobs:
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v2
-        with:
-          path: 'anylinq.ansible-baseos'
 
       - name: Set up Python 3.
         uses: actions/setup-python@v2
@@ -38,14 +32,12 @@ jobs:
     strategy:
       matrix:
         distro:
-          - rockylinux8
-          - debian11
+          - rockylinux9
+          - debian12
 
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v2
-        with:
-          path: 'anylinq.ansible-baseos'
 
       - name: Set up Python 3.
         uses: actions/setup-python@v2
