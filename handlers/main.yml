@@ -33,7 +33,7 @@
     state: remounted
   loop: "{{ mountpoints_changed }}"
 
-- name: Grub mkconfig 
+- name: Grub mkconfig
   ansible.builtin.command: "{{ ipv6_grub_mkconfig }} -o /boot/grub2/grub.cfg"
   when: >
     not (ansible_virtualization_type is defined and

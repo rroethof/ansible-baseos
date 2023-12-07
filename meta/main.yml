@@ -4,7 +4,7 @@ galaxy_info:
   namespace: rroethof
   role_name: ansible-baseos
   description: Installation of the base system for our servers
-  company: 
+  company:
 
   issue_tracker_url: https://github.com/rroethof/ansible-baseos/issues
 
