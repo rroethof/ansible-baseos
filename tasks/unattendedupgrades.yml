@@ -1,0 +1,65 @@
+---
+# tasks file for ansible-baseos
+
+- name: Execute apt update if the last one is more than 1 hour ago
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+  when: ansible_pkg_mgr == "apt"
+
+- name: Ensure the unattended-upgrades package is installed
+  ansible.builtin.package:
+    name: unattended-upgrades
+
+- name: Create the 50unattended-upgrades file
+  ansible.builtin.template:
+    src: etc/apt/apt.conf.d/50unattended-upgrades.j2
+    dest: /etc/apt/apt.conf.d/50unattended-upgrades
+    mode: "0644"
+  when: unattended_upgrades_conf != ""
+
+- name: Ensure the apt-daily.timer.d directory exists and with the right permissions
+  ansible.builtin.file:
+    path: /etc/systemd/system/apt-daily.timer.d
+    state: directory
+    mode: "0755"
+  when: unattended_upgrades_adt_override_conf != ""
+
+- name: Ensure the apt-daily-upgrade.timer.d directory exists and with the right permissions
+  ansible.builtin.file:
+    path: /etc/systemd/system/apt-daily-upgrade.timer.d
+    state: directory
+    mode: "0755"
+  when: unattended_upgrades_adut_override_conf != ""
+
+- name: Create the apt-daily.timer.d/override.conf file
+  ansible.builtin.template:
+    src: override.conf.j2.j2
+    dest: /etc/systemd/system/apt-daily.timer.d/override.conf
+    mode: "0644"
+  when: unattended_upgrades_adt_override_conf != ""
+  notify:
+    - Reload systemd
+    - Restart the apt-daily timer
+
+- name: Create the apt-daily-upgrade.timer.d/override.conf file
+  ansible.builtin.template:
+    src: etc/systemd/system/apt-daily-upgrade.timer.d/override.conf.j2
+    dest: /etc/systemd/system/apt-daily-upgrade.timer.d/override.conf
+    mode: "0644"
+  when: unattended_upgrades_adut_override_conf != ""
+  notify:
+    - Reload systemd
+    - Restart the apt-daily-upgrade timer
+
+- name: Enable unattended upgrades via debconf
+  # This should create the /etc/apt/apt.conf.d/20auto-upgrades file
+  ansible.builtin.debconf:
+    name: unattended-upgrades
+    question: unattended-upgrades/enable_auto_updates
+    vtype: boolean
+    value: "true"
+  notify: Reconfigure the unattended-upgrades package
+
+- name: Force all notified handlers to run at this point
+  ansible.builtin.meta: flush_handlers

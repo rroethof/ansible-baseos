@@ -1,2 +1,80 @@
 ---
-# tasks file for ansibletemplate
+# tasks file for ansible-baseos
+
+- name: Import tasks for ipv6
+  ansible.builtin.import_tasks: ipv6.yml
+
+- name: Import tasks for unattended upgrades
+  ansible.builtin.import_tasks: unattendedupgrades.yml
+
+# - name: Import tasks for auditd
+#   ansible.builtin.import_tasks: auditd.yml
+
+# - name: Import tasks for cron
+#   ansible.builtin.import_tasks: cron.yml
+
+# - name: Import tasks to configure ctrl+alt+del
+#   ansible.builtin.import_tasks: ctrlaltdel.yml
+
+# - name: Import tasks to configure limits
+#   ansible.builtin.import_tasks: limits.yml
+
+# - name: Import tasks to configure login_defs
+#   ansible.builtin.import_tasks: login_defs.yml
+
+# - name: Import tasks to minimize access permissions
+#   ansible.builtin.import_tasks: minimize_access.yml
+
+# - name: Import tasks to configure PAM
+#   ansible.builtin.import_tasks: pam.yml
+
+# - name: Import tasks to configure modules
+#   ansible.builtin.import_tasks: modprobe.yml
+
+# - name: Import tasks to configure profile
+#   ansible.builtin.import_tasks: profile.yml
+
+# - name: Import tasks to configure securetty
+#   ansible.builtin.import_tasks: securetty.yml
+
+# - name: Import tasks to set suid and sgid
+#   ansible.builtin.import_tasks: suid_sgid.yml
+
+# - name: Import tasks to configure sysctl
+#   ansible.builtin.import_tasks: sysctl.yml
+
+# - name: Import tasks to harden user accounts
+#   ansible.builtin.import_tasks: user_accounts.yml
+
+# - name: Import tasks to configure rhosts
+#   ansible.builtin.import_tasks: rhosts.yml
+
+# - name: Import tasks to configure netrc
+#   ansible.builtin.import_tasks: netrc.yml
+
+# - name: Import tasks to configure apt
+#   ansible.builtin.import_tasks: apt.yml
+
+# - name: Import tasks to configure sudoers
+#   ansible.builtin.import_tasks: sudoers.yml
+
+# - name: Import tasks to configure rsyslog
+#   ansible.builtin.import_tasks: rsyslog.yml
+
+# - name: Import tasks to configure sshd
+#   ansible.builtin.import_tasks: sshd.yml
+
+# - name: Import tasks to restrict compilers
+#   ansible.builtin.import_tasks: restrict_compiler.yml
+
+# - name: Import tasks to configure chkrootkit
+#   ansible.builtin.import_tasks: chkrootkit.yml
+
+# - name: Import tasks to configure rkhunter
+#   ansible.builtin.import_tasks: rkhunter.yml
+
+# - name: Import tasks to configure services accounting
+#   ansible.builtin.import_tasks: services-accounting.yml
+
+# - name: Import tasks to configure services
+#   ansible.builtin.import_tasks: services.yml

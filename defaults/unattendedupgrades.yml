@@ -1,0 +1,14 @@
+---
+# defaults file for ansible-baseos
+
+# Content for the /etc/apt/apt.conf.d/50unattended-upgrades file. If set to
+# empty string, that file won't be created
+unattended_upgrades_conf: ""
+
+# Content for the /etc/systemd/system/apt-daily.timer.d/override.conf file. If
+# set to empty string, that file won't be created
+unattended_upgrades_adt_override_conf: ""
+
+# Content for the /etc/systemd/system/apt-daily-upgrade.timer.d/override.conf
+# file. If set to empty string, that file won't be created
+unattended_upgrades_adut_override_conf: ""

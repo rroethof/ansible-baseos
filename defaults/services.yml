@@ -1,0 +1,24 @@
+---
+# defaults file for ansible-baseos
+
+disabled_services:
+  - avahi-daemon
+  - bluetooth
+  - hciuart
+  - cups
+  - cups-browsed
+  - atd
+  - ModemManager
+  - triggerhappy
+  - xinetd
+  - inetd
+  - triggerhappy
+  - wpa_supplicant
+  - alsa-restore
+  - alsa-state
+  - hciuart
+  # NFS stuff from nfs-common & nfs-kernel-server packages
+  - nfs-blkmap
+  - nfs-idmapd
+  - nfs-mountd
+  - nfs-server

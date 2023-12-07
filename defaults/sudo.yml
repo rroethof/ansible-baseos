@@ -1,0 +1,8 @@
+---
+# defaults file for ansible-baseos
+
+sudo_timeout: 15
+
+sudo_logs_json: false
+
+sudo_remotesyslog: ''

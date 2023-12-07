@@ -1,12 +1,12 @@
 ---
 galaxy_info:
-  author: Jou naam hier
-  namespace: anylinq
-  role_name: ansibletemplate
-  description: Jou omschrijving hier
-  company: AnyLinQ B.V.
+  author: Ronny Roethof
+  namespace: rroethof
+  role_name: ansible-baseos
+  description: Installation of the base system for our servers
+  company: 
 
-  issue_tracker_url: https://github.com/AnyLinQ-B-V/template-ansible-role/issues
+  issue_tracker_url: https://github.com/rroethof/ansible-baseos/issues
 
   license: MIT
 
@@ -20,6 +20,7 @@ galaxy_info:
     - name: Debian
       versions:
         - bullseye
+        - bookworm
 
   galaxy_tags: []
 

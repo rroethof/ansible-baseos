@@ -1,2 +1,53 @@
 ---
-# handlers file for ansibletemplate
+# handlers file for ansible-baseos
+
+- name: Update-initramfs
+  ansible.builtin.command: update-initramfs -u
+
+- name: Restart auditd
+  ansible.builtin.command:
+    cmd: service auditd restart
+
+- name: Reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: true
+
+- name: Restart the apt-daily timer
+  ansible.builtin.systemd:
+    name: apt-daily.timer
+    state: restarted
+
+- name: Restart the apt-daily-upgrade timer
+  ansible.builtin.systemd:
+    name: apt-daily-upgrade.timer
+    state: restarted
+
+- name: Reconfigure the unattended-upgrades package
+  ansible.builtin.command:
+    cmd: dpkg-reconfigure -f noninteractive unattended-upgrades
+  changed_when: false
+
+- name: Remount filesystems
+  ansible.posix.mount:
+    path: "{{ item }}"
+    state: remounted
+  loop: "{{ mountpoints_changed }}"
+
+- name: Grub mkconfig 
+  ansible.builtin.command: "{{ ipv6_grub_mkconfig }} -o /boot/grub2/grub.cfg"
+  when: >
+    not (ansible_virtualization_type is defined and
+          (ansible_virtualization_type == "lxc" or ansible_virtualization_type == "docker")
+        )
+
+- name: Rmmodipv6
+  ansible.builtin.command: rmmod ipv6
+  failed_when: false
+  when: >
+    not (ansible_virtualization_type is defined and
+          (ansible_virtualization_type == "lxc" or ansible_virtualization_type == "docker")
+        )
+
+- name: Create rkhunter.dat
+  ansible.builtin.command: /usr/bin/rkhunter --propupd
+  become: true

@@ -1,0 +1,33 @@
+---
+# defaults file for ansible-baseos
+
+auth_pw_max_age: 60
+
+# Discourage password cycling
+auth_pw_min_age: 7
+
+auth_pw_warn_age: 7
+
+# Specify how many used passwords are record
+auth_pw_remember: 5
+
+auth_retries: 5
+
+# Seconds (600 = 10min)
+auth_lockout_time: 600
+
+auth_timeout: 60
+
+auth_allow_homeless: false
+
+auth_pam_oddjob_mkhomedir: false
+
+auth_pam_passwdqc_enable: true
+
+# Used in Debian
+auth_pam_passwdqc_options: min=disabled,disabled,16,12,8
+
+# Used in RHEL
+auth_pam_pwquality_options: try_first_pass retry=3 authtok_type=
+
+auth_root_ttys: [console, tty1, tty2, tty3, tty4, tty5, tty6]
